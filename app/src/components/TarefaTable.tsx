@@ -1,9 +1,11 @@
 'use client';
 
+import clsx from 'clsx';
 import { useState } from 'react';
 import AlterarTarefaDialog from './AlterarTarefaDialog';
 import CadastrarTarefaDialog from './CadastrarTarefaDialog';
 import DeletarTarefaDialog from './DeletarTarefaDialog';
+import { StatusEnum } from './forms/tarefa/utils/Enum';
 import { Tarefa } from './forms/tarefa/utils/Types';
 
 interface TarefaTableProps {
@@ -28,13 +30,23 @@ export default function TarefaTable({ data }: TarefaTableProps) {
 							<th className='text-center'>Ação</th>
 						</tr>
 					</thead>
+
 					<tbody>
 						{dataState.map((tarefa: Tarefa) => (
 							<tr key={tarefa.id}>
 								<td>{tarefa.id}</td>
 								<td>{tarefa.titulo}</td>
 								<td>{tarefa.descricao}</td>
-								<td>{tarefa.status.descricao}</td>
+								<td>
+									<div className='flex gap-2 items-center'>
+										<div className={clsx('rounded-full size-4', {
+											'bg-orange-400': tarefa.status.descricao === StatusEnum.PENDENTE,
+											'bg-green-400': tarefa.status.descricao === StatusEnum.CONCLUIDA
+										})}/>
+
+										<span>{tarefa.status.descricao}</span>
+									</div>
+								</td>
 								<td className='w-0'>
 									<div className='flex gap-2'>
 										<AlterarTarefaDialog
@@ -42,7 +54,7 @@ export default function TarefaTable({ data }: TarefaTableProps) {
 											setDataState={setDataState}
 										/>
 
-										<DeletarTarefaDialog />
+										<DeletarTarefaDialog setDataState={setDataState} />
 									</div>
 								</td>
 							</tr>
