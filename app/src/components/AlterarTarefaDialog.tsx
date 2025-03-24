@@ -2,11 +2,10 @@
 
 import { Pen } from 'lucide-react';
 import { useState } from 'react';
-import TarefaForm from './TarefaForm';
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
+import TarefaForm from './forms/tarefa/TarefaForm';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
 
 export default function AlterarTarefaDialog() {
-	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	return (
@@ -30,23 +29,8 @@ export default function AlterarTarefaDialog() {
 					</DialogDescription>
 				</DialogHeader>
 
-				<div>
+				<div className='pt-2'>
 					<TarefaForm />
-				</div>
-
-				<div className='flex justify-center gap-2'>
-					<DialogClose asChild>
-						<button className='btn'>
-							Cancelar
-						</button>
-					</DialogClose>
-
-					<button
-						disabled={isLoading}
-						className='btn btn-success'
-					>
-						Salvar
-					</button>
 				</div>
 			</DialogContent>
 		</Dialog>
