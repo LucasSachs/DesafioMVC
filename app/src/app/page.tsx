@@ -13,7 +13,7 @@ export default async function Page() {
 	}
 
 	return (
-		<div className='p-8'>
+		<div className='p-8 overflow-hidden'>
 			<TarefaTable data={data.data} />
 		</div>
 	);

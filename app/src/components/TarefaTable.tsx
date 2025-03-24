@@ -16,10 +16,10 @@ export default function TarefaTable({ data }: TarefaTableProps) {
 	const [dataState, setDataState] = useState<Tarefa[]>(data);
 
 	return (
-		<div className='flex flex-col gap-4'>
+		<div className='flex flex-col gap-4 size-full'>
 			<CadastrarTarefaDialog setDataState={setDataState} />
 
-			<div className='overflow-x-auto w-full'>
+			<div className='overflow-auto'>
 				<table className='table'>
 					<thead>
 						<tr>
