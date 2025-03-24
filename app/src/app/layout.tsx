@@ -3,6 +3,7 @@ import { Poppins } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ReactNode } from 'react';
+import { ToastContainer } from 'react-toastify';
 import logo from '../../public/logo.png';
 import './globals.css';
 
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
 	return (
 		<html lang='pt'>
 			<body className={`${poppins.className} antialiased`}>
+				<ToastContainer />
 				<div className='w-full h-screen bg-base-200 justify-center items-center flex flex-col relative'>
 					<div className='size-3/4 bg-base-100 border border-base-300 shadow-md rounded-lg flex flex-col'>
 						<div className='border-b-base-300 w-full border-b flex justify-between items-center p-3'>

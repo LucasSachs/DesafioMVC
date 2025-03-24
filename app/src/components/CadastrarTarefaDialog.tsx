@@ -1,17 +1,15 @@
-'use client';
-
-import { Pen } from 'lucide-react';
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Plus } from 'lucide-react';
 import { Dispatch, SetStateAction, useState } from 'react';
 import TarefaForm from './forms/tarefa/TarefaForm';
 import { Tarefa } from './forms/tarefa/utils/Types';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
+import { DialogHeader } from './ui/dialog';
 
-interface AlterarTarefaDialogProps {
-	tarefa: Tarefa;
+interface CadastrarTarefaDialogProps {
 	setDataState: Dispatch<SetStateAction<Tarefa[]>>;
 }
 
-export default function AlterarTarefaDialog({ tarefa, setDataState }: AlterarTarefaDialogProps) {
+export default function CadastrarTarefaDialog({ setDataState }: CadastrarTarefaDialogProps) {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	return (
@@ -20,12 +18,10 @@ export default function AlterarTarefaDialog({ tarefa, setDataState }: AlterarTar
 			onOpenChange={setIsOpen}
 		>
 			<DialogTrigger>
-				<div
-					className='tooltip'
-					data-tip='Alterar'
-				>
-					<div className='btn btn-sm btn-primary text-white'>
-						<Pen size={16} />
+				<div className='flex-row-reverse flex'>
+					<div className='btn btn-primary flex gap-1'>
+						<Plus size={24} />
+						<span>Cadastrar nova tarefa</span>
 					</div>
 				</div>
 			</DialogTrigger>
@@ -34,13 +30,12 @@ export default function AlterarTarefaDialog({ tarefa, setDataState }: AlterarTar
 				<DialogHeader>
 					<DialogTitle>Formulário de Tarefa</DialogTitle>
 					<DialogDescription>
-						Aqui você pode atualizar os detalhes dessa tarefa conforme for necessário.
+						Aqui você pode cadastrar uma nova tarefa.
 					</DialogDescription>
 				</DialogHeader>
 
 				<div className='pt-2'>
 					<TarefaForm
-						tarefa={tarefa}
 						setIsOpen={setIsOpen}
 						setDataState={setDataState}
 					/>

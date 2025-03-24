@@ -1,22 +1,54 @@
 'use client';
 
 import Textarea from '@/components/Textarea';
+import { isApiError } from '@/helpers/APIHelper';
+import { toastError, toastSuccess } from '@/helpers/ToastHelper';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Dispatch, SetStateAction } from 'react';
 import { useForm } from 'react-hook-form';
 import Input from '../../Input';
 import { DialogClose } from '../../ui/dialog';
+import { createTarefa, updateTarefa } from './utils/TarefaFormActions';
 import { TarefaFormSchema, TarefaFormValidator } from './utils/TarefaFormValidator';
+import { Tarefa } from './utils/Types';
 
-export default function TarefaForm() {
+interface TarefaFormProps {
+	setIsOpen: Dispatch<SetStateAction<boolean>>;
+	setDataState: Dispatch<SetStateAction<Tarefa[]>>;
+	tarefa?: Tarefa
+}
+
+export default function TarefaForm({ setIsOpen, tarefa, setDataState }: TarefaFormProps) {
 	const { register, handleSubmit, formState: { isSubmitting, errors } } = useForm<TarefaFormSchema>({
-		resolver: zodResolver(TarefaFormValidator)
+		resolver: zodResolver(TarefaFormValidator),
+		defaultValues: {
+			id: tarefa?.id
+		}
 	});
 
 	async function handleFormSubmit(data: TarefaFormSchema) {
-		console.log(data);
-		return await new Promise((resolve) => {
-			setTimeout(resolve, 2000);
-		});
+		let response = undefined;
+		if (tarefa) {
+			response = await updateTarefa(data);
+		} else {
+			response = await createTarefa(data);
+		}
+
+		if (isApiError(response)) {
+			return toastError(`Houve um erro ao atualizar a tarefa: ${response.message}`);
+		}
+
+		if (tarefa) {
+			setDataState((prev) => prev.map((tarefa) => {
+				if (tarefa.id === response.data.id) { return response.data; }
+				return tarefa;
+			}));
+		} else {
+			setDataState((prev) => [...prev, response.data]);
+		}
+
+		toastSuccess('Tarefa atualizada com sucesso!');
+		return setIsOpen(false);
 	}
 
 	return (
@@ -29,6 +61,7 @@ export default function TarefaForm() {
 					<Input
 						{...register('titulo')}
 						label='Título da tarefa'
+						defaultValue={tarefa?.titulo}
 						error={errors.titulo?.message}
 					/>
 				</div>
@@ -36,7 +69,7 @@ export default function TarefaForm() {
 				<div className='w-1/2'>
 					<select
 						{...register('status')}
-						defaultValue='Selecione um status...'
+						defaultValue={tarefa?.status.descricao}
 						className='select border border-base-300 w-full'
 					>
 						<option disabled={true}>Status da Tarefa</option>
@@ -49,6 +82,7 @@ export default function TarefaForm() {
 			<Textarea
 				{...register('descricao')}
 				label='Descrição da tarefa'
+				defaultValue={tarefa?.descricao}
 				error={errors.descricao?.message}
 			/>
 

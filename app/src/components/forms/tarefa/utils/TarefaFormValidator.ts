@@ -1,6 +1,10 @@
 import { z } from 'zod';
 
 export const TarefaFormValidator = z.object({
+	id: z
+		.number()
+		.optional(),
+
 	titulo: z
 		.string()
 		.nonempty('O título da tarefa é obrigatório.')
@@ -9,7 +13,7 @@ export const TarefaFormValidator = z.object({
 	descricao: z
 		.string()
 		.nonempty('A descrição da tarefa é obrigatória.')
-		.min(3, 'A descrição da tarefa deve ter no mínimo 8 caracteres.')
+		.min(8, 'A descrição da tarefa deve ter no mínimo 8 caracteres.')
 		.max(100, 'A descrição da tarefa deve ter no máximo 100 caracteres.'),
 
 	status: z
