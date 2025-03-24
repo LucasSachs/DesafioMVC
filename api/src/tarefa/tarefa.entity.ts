@@ -1,5 +1,5 @@
 import { Status } from 'src/status/status.entity';
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Tarefa {
@@ -18,7 +18,4 @@ export class Tarefa {
 
 	@CreateDateColumn()
 	created_at: Date;
-
-	@DeleteDateColumn()
-	deleted_at: Date;
 }
