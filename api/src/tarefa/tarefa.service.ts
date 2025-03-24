@@ -46,4 +46,13 @@ export class TarefaService {
 			status
 		});
 	}
+
+	async deleteTarefa(id: number): Promise<void> {
+		const tarefaToDelete = await this.tarefaRepository.findOne({ where: { id } });
+		if (!tarefaToDelete) {
+			throw new HttpException('Tarefa não encontrada', 500);
+		}
+
+		await this.tarefaRepository.delete(tarefaToDelete.id);
+	}
 }

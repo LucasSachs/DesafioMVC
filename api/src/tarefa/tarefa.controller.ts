@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { TarefaService } from './tarefa.service';
 import { CreateTarefaDto } from './utils/create.tarefa.dto';
 import { UpdateTarefaDto } from './utils/update.tarefa.dto';
@@ -22,5 +22,10 @@ export class TarefaController {
 	@Put()
 	async updateTarefa(@Body() tarefa: UpdateTarefaDto) {
 		return await this.tarefaService.updateTarefa(tarefa);
+	}
+
+	@Delete(':id')
+	delete(@Param('id') id: string) {
+		return this.tarefaService.deleteTarefa(Number(id));
 	}
 }
