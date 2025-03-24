@@ -54,7 +54,10 @@ export default function TarefaTable({ data }: TarefaTableProps) {
 											setDataState={setDataState}
 										/>
 
-										<DeletarTarefaDialog setDataState={setDataState} />
+										<DeletarTarefaDialog
+											tarefa={tarefa}
+											setDataState={setDataState}
+										/>
 									</div>
 								</td>
 							</tr>
