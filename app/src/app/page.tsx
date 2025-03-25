@@ -4,7 +4,8 @@ import { FetchApi, isApiError } from '@/helpers/APIHelper';
 export default async function Page() {
 	const data = await FetchApi({
 		endpoint: '/tarefa',
-		method: 'GET'
+		method: 'GET',
+		cache: 'no-cache'
 	});
 
 	if (isApiError(data)) {
