@@ -17,7 +17,9 @@ export default function TarefaTable({ data }: TarefaTableProps) {
 
 	return (
 		<div className='flex flex-col gap-4 size-full'>
-			<CadastrarTarefaDialog setDataState={setDataState} />
+			<div className='flex-row-reverse flex'>
+				<CadastrarTarefaDialog setDataState={setDataState} />
+			</div>
 
 			<div className='overflow-auto'>
 				<table className='table'>

@@ -1,3 +1,5 @@
+'use client';
+
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Plus } from 'lucide-react';
 import { Dispatch, SetStateAction, useState } from 'react';
@@ -18,11 +20,9 @@ export default function CadastrarTarefaDialog({ setDataState }: CadastrarTarefaD
 			onOpenChange={setIsOpen}
 		>
 			<DialogTrigger>
-				<div className='flex-row-reverse flex'>
-					<div className='btn btn-primary flex gap-1'>
-						<Plus size={24} />
-						<span>Cadastrar nova tarefa</span>
-					</div>
+				<div className='btn btn-primary flex gap-1'>
+					<Plus size={24} />
+					<span>Cadastrar nova tarefa</span>
 				</div>
 			</DialogTrigger>
 
