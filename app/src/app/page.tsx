@@ -1,6 +1,5 @@
 import TarefaTable from '@/components/TarefaTable';
 import { FetchApi, isApiError } from '@/helpers/APIHelper';
-import { toastError } from '@/helpers/ToastHelper';
 
 export default async function Page() {
 	const data = await FetchApi({
@@ -9,7 +8,11 @@ export default async function Page() {
 	});
 
 	if (isApiError(data)) {
-		return toastError(`Houve um erro ao buscar os dados: ${data.message}`);
+		return (
+			<div className='flex justify-center size-full items-center'>
+				<span className='text-error text-lg rounded-lg bg-red-100 p-4'>Houve um erro ao buscar os dados da API, por favor verifique se a mesma está ativa.</span>
+			</div>
+		);
 	}
 
 	return (
